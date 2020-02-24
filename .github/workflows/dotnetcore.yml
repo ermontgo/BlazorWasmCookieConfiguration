@@ -1,0 +1,28 @@
+name: .NET Core
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 2.2.108
+    - name: Build BlazorWasmCookieConfiguration with dotnet
+      run: dotnet build --configuration Release src/BlazorWasmCookieConfiguration.sln --version-suffix prerelease-$(date +%Y%m%d%H%M%S)
+    - name: Package BlazorWasmCookieConfiguration
+      run: dotnet pack --configuration Release src/BlazorWasmCookieConfiguration.sln --version-suffix prerelease-$(date +%Y%m%d%H%M%S) -o ../artifacts/
+    - name: Publish All
+      run: |
+           for f in src/artifacts/*.nupkg
+           do
+             dotnet nuget push $f -k ${NUGET_TOKEN} -s https://api.nuget.org/v3/index.json
+           done
+      shell: bash
+      env:
+        NUGET_TOKEN: ${{ secrets.NuGetKey }}
