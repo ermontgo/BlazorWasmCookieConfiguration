@@ -1,10 +1,11 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using BlazorWasmCookieConfiguration;
+using Microsoft.Extensions.Configuration;
 using Microsoft.JSInterop;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace BlazorWasmCookieConfiguration
+namespace Microsoft.Extensions.Configuration
 {
     public static class CookieConfigurationExtensions
     {
