@@ -12,7 +12,7 @@ jobs:
     - name: Setup .NET Core
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 2.2.108
+        dotnet-version: 3.1.100
     - name: Build BlazorWasmCookieConfiguration with dotnet
       run: dotnet build --configuration Release src/BlazorWasmCookieConfiguration.sln --version-suffix prerelease-$(date +%Y%m%d%H%M%S)
     - name: Package BlazorWasmCookieConfiguration
